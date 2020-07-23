@@ -273,9 +273,9 @@ module Crystal
           when :unless
             atomic = parse_expression_suffix(location) { |exp| Unless.new(exp, atomic) }
           when :while
-            raise "trailing `while` is not supported", @token
+            atomic = parse_expression_suffix(location) { |exp| While.new(exp, atomic) }
           when :until
-            raise "trailing `until` is not supported", @token
+            atomic = parse_expression_suffix(location) { |exp| Until.new(exp, atomic) }
           when :rescue
             next_token_skip_space
             rescue_body = parse_op_assign
